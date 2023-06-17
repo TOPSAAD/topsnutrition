@@ -1,0 +1,42 @@
+{% load static %}
+<div class="navbar navbar-expand-md bg-dark navbar-dark text-white fixed-top">
+    <div class="container">
+        <a href="/" class="navbar-brand">TOPS NUTRITION</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+            
+        </button>
+        <div class="collapse navbar-collapse" id="menu">
+            <div class="navbar-nav ms-auto">
+                <li class="nav-item"><a href="/"  class="nav-link">ACCUEIL</a></li>
+                <li class="nav-item dropdown">
+                    <a href="/products" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">NUTRITION SPORTIVE</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/products#gainer" class="dropdown-item">GAINERS</a></li>
+                            <li><a href="/products#proteine" class="dropdown-item">PROTEINES</a></li>
+                            <li><a href="/products#acidamineetbcaa" class="dropdown-item">ACID AMINÉ & BCAA</a></li>
+                            <li><a href="/products#preworkoutetbooster" class="dropdown-item">PRE-WORKOUT & BOOSTER</a></li>
+                            <li><a href="/products#creatine" class="dropdown-item">CREATINE</a></li>
+                            <li><a href="/products#omega3etfishoil" class="dropdown-item">OMEGA3 & FISH OIL</a></li>
+                            <li><a href="/products#vitaminesetmineraux" class="dropdown-item">VITAMINES & MINÉRAUX</a></li>
+                            <li><a href="/products#bruluresdegraisse" class="dropdown-item">BRÛLURES DE GRAISSE</a></li>
+                            <li><a href="/products#0calorie" class="dropdown-item">0 CALORIE</a></li>
+                        </ul>
+                    
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">ACCESSOIRES - VÊTEMENTS</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#learn-bo" class="dropdown-item">HOMMES</a></li>
+                            <li><a href="#next" class="dropdown-item">FEMMES</a></li>
+                        </ul>
+                    
+                </li>
+                
+                <li class="nav-item"><a href="#" class="nav-link">PACKS</a></li>
+                <li class="nav-item"><a href="/contact"  class="nav-link">CONTACT</a></li>
+                <li class="nav-item"><a href="{% url 'cart_detail' %}" class="nav-link"><i class="bi bi-cart link-warning h5"></i><span class=" link-warning "> {{ request.session.cart|length }} </span></a></li>
+            </div>
+        </div>
+    </div>
+</div>

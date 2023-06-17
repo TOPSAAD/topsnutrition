@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <title>TOPS Nutrition</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<style>
+    
+    ::selection{
+        color: aqua;
+      
+    }
+   
+    body::before{
+            content:'';
+            display: block;
+            height: 50px;}
+</style>
+</head>
+
+{% load static %}
+
+<body>
+    <div class="container">
+        <section id="login" class="">
+            <div class="container">
+                
+                <div  class="card mx-auto text-center m-5 w-md-50">
+                    <div style="background-color: #D6AD61;" class="rounded text-light text-center">
+                        <p class="fs-4 pt-1 mt-1">Dashboard</p>
+                    </div>
+                    
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {% if correct == False %}
+                        <p class="text-danger my-2 h6">There was a problem logging you. Please try again soon.</p>
+
+                    {% endif %}
+                        <input type="text" placeholder="Username" name="username" class="m-auto my-4 form-control w-75 border-rounded">
+                        <input type="password" placeholder="Password" name="password" class="m-auto form-control w-75 border-rounded">
+                        <button type="submit" style="background-color: #D6AD61;" class="btn my-4 text-light w-25">Login</button>
+                    </form>
+                </div>
+            </div>
+            
+            
+        </section>
+        
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+</head>
+{% extends 'base.html' %}
+{% load static%}
+{% block content %}
+<body>
+    <section class="my-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-6 col-md-12 border rounded">
+                    <h4 class="pt-5 pb-3 ">Envoie-nous un message</h4>
+                    <form action="{% url 'contact' %}" onsubmit="alert('Message envoyé. Merci :)')" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-2 col-1"></div>
+                                <div class="col-8 border rounded py-2 pl-3">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <i class="bi bi-person-fill"></i>
+                                        </div>
+                                        <div class="col-md-11 col-11 text-start">
+                                            <input class="border-0 w-100" required placeholder="Votre Nom" name="nom" type="text">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                            <div class="row my-4">
+                                <div class="col-md-2 col-1"></div>
+                                <div class="col-8 border rounded py-2 pl-3">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <i class="bi bi-envelope"></i>
+                                        </div>
+                                        <div class="col-md-11 col-11 text-start">
+                                            <input class="border-0 w-100" required placeholder="Votre adresse email" name="email" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <textarea maxlength='1000' type="text" class="mx-5 border rounded text-start" required style="width:69%; height:200px;" name="message" placeholder="Votre message"></textarea>
+                            <button type="submit"  class="btn btn-dark mt-3 mb-5" style="width:69%; border-radius:5em;">ENVOYER</button>
+                            
+                            
+
+                        
+                    </form>
+                </div>
+                <div class="col-lg-6 col-md-12 border rounded">
+                    <h5></h5>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+{% endblock content %}
+</html>

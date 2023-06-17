@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+</head>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<body>
+    <div class="container">
+        <section id="cart" class="m-5">
+            <div class="container">
+                <h5 class="m-3 text-warning" style="font-family:Arial Black;">Votre Panier</h5>
+                <div class="row">
+                    <div class="col-lg-8 col-md-12">
+                        <div class=" text-light p-2 border rounded " style="overflow:auto;height: 21em;">
+                            <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    
+                                    <th scope="col">IMAGE</th>
+                                    <th scope="col">DESCRIPTION</th>
+                                    <th scope="col">QUANTITÉ</th>
+                                    <th scope="col">PRIX</th>
+                                    <th scope="col">TOTAL</th>
+                                    <th scope="col"></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in products %}
+                                  <tr>
+                                    
+                                    <td>
+                                        <a href="{% url 'product' item.id %}" class="h6"><img src="{{ item.img }}" alt="" class="" style="width:3em;"></a>
+                                    </td>
+                                    <td><a class="link-warning" href="{% url 'product' item.id %}">{{ item.name }}</a><br><span class="h6 text-secondary">{{ item.flavor }}</span></td>
+                                    <td>
+                                        <form action="{% url 'ChangeQuantity' item.id item.flavor %}" method="post">
+                                            {% csrf_token %}
+                                            <input name="quantity" onchange="this.form.submit();" type="number" min="1" max='30' value="{{item.quantity}}" class="form-control border border-dark ">
+
+                                        </form>
+                                                    
+                                    </td>
+                                    <td>{{ item.price }}</td>
+                                    <td>{{ item.total }}</td>
+                                    <td><a href="{% url 'delete' item.id item.flavor %}" class="link-danger h6"><i class="bi bi-trash"></i></a></td>
+                                    
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="text-center border bg-dark p-2 text-light rounded ">
+                            <div class="container">
+                                <h6 class="m-3">SOUS-TOTAL : <span>{{ subtotal }}</span></h6>
+                                <hr>
+                                <form action="{% url 'cart_detail' %}" method="post">
+                                    {% csrf_token %}
+                                <input hidden type="number" name="subtotal" value="{{ subtotal }}">
+
+                                <div style="font-family: 'Gill Sans', sans-serif; outline:none;" class="border border-secondary rounded text-start my-2 bg-white text-secondary w-100">
+                                    <label style="font-family: 'Gill Sans', sans-serif;" class="px-3" for="">Livraison</label>
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <select required name="delivery" onchange="this.form.submit();" class="form-control border-0" id="gender1">
+                                                {% if delivery == 0 %}
+                                                <option selected value="0">Choisissez une option...</option>
+                                                <option value="19"> RABAT-SALE <span class="text-warning">19 Dh</span></option>
+                                                <option value="49"> AUTRE VILLE <span class="text-warning">49 Dh</span></option>
+                                                {% elif delivery == 19 %}
+                                                <option disabled value="0">Choisissez une option...</option>
+                                                <option selected value="19"> RABAT-SALE <span class="text-warning">19 Dh</span></option>
+                                                <option value="49"> AUTRE VILLE <span class="text-warning">49 Dh</span></option>
+                                                {% else %}
+                                                <option disabled value="0">Choisissez une option...</option>
+                                                <option value="19"> RABAT-SALE <span class="text-warning">19 Dh</span></option>
+                                                <option selected value="49"> AUTRE VILLE <span class="text-warning">49 Dh</span></option>
+                                                {% endif %}
+                                                
+                                            </select>
+                                        </div>
+                                        <div class="col-1">
+                                            <i class="bi bi-chevron-right hw-bold h4 flex"></i>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </form>
+                            <hr>
+                                <h6 class="m-4">TOTAL : <span class="text-warning">{{ total }}</span></h6>
+                            <hr>
+                                {% if delivery == 0 %}
+                                    <button disabled type="submit" class="btn btn-danger m-4">VALIDER</button>
+                                {% else %}
+                                     <a href="{% url 'validate' %}" onclick="this.form.submit();" class="btn btn-danger m-4">VALIDER</a>
+                                {% endif %}
+                                
+                            </div>
+                            
+                            
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="m-3">
+                    <a href="{% url 'products' %}" class="link-warning h6 "><i class="bi bi-arrow-left"></i> Poursuivre les achats</a>
+                </div>
+            </div>
+        </section>
+        <hr>
+        <section id="new" class="m-5 ">
+            <div class="container">
+                <div class="row text-center">
+                    
+                    {% for product in prods %}
+                        
+                        <div class="col-md-3 col-sm-6">
+                            <div class="card bg-white text-light mb-3 shadow">
+                                <div class="h1 mt-3">
+                                    
+                                    <a href="#" class="text-decoration-none">
+                                        
+                                        <img src="{{ product.image1.url }}" alt="" class="img-fluid">
+                                    </a>
+                                    <div class="card-body">
+                                        <h1></h1>
+                                        <a href="" class="text-decoration-none"><h6 class="card-title text-nowrap text-body fw-bold ">{{product.name}}</h6></a>
+                                        <div class="card-text"><span><strike class="text-danger fs-6">{{product.price}}</strike></span>&ThinSpace;<span class="text-success fs-4">{{product.price}}</span></div>
+                                        <a href="{% url 'product' product.id %}" class="btn btn-info text-light fw-bold">COMMANDER</a>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    
+                    
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+{% endblock content %}
+</html>

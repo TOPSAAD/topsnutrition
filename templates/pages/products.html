@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+</head>
+{% extends 'base.html' %}
+{% load static%}
+{% block content %}
+<body>
+    <section id="products1" class="py-5 bg-light">
+        <div class="container">
+            
+                    
+            
+           
+            
+            
+                
+                    {% for category in categories %}
+                    <div id="{{ category }}" class=" mb-3 bg-light rounded br-3 py-2">
+                        {% if category == 'gainer'%}
+                            <h5 class="text-start" style="font-family:system-ui; color: grey; font-weight: 800;">GAINERS</h5>
+                        {% elif category == 'proteine' %}
+                            <h5 class="text-start" style="font-family:system-ui; color: grey; font-weight: 800;">PROTEINES</h5>
+                        {% elif category == 'acidamineetbcaa' %}
+                            <h5 class="text-start" style="font-family:system-ui; color: grey; font-weight: 800;">ACID AMINÉ & BCAA</h5>
+                        {% elif category == 'preworkoutetbooster' %}
+                            <h5 class="text-start" style="font-family:system-ui; color: grey; font-weight: 800;">Pre-Workout & Booster</h5>
+                        {% elif category == 'creatine' %}
+                            <h5 class="text-start" style="font-family:system-ui; color: grey; font-weight: 800;">Creatine</h5>
+                        {% elif category == 'omega3etfishoil' %}
+                            <h5 class="text-start" style="font-family:system-ui; color: grey; font-weight: 800;">OMEGA3 & Fish Oil</h5>
+                        {% elif category == 'vitaminesetmineraux' %}
+                            <h5 class="text-start" style="font-family:system-ui; color: grey; font-weight: 800;">Vitamines & Minéraux</h5>
+                        {% elif category == 'bruluresdegraisse' %}
+                            <h5 class="text-start" style="font-family:system-ui; color: grey; font-weight: 800;">Brûlures De Graisse</h5>
+                        {% elif category == '0calorie' %}
+                            <h5 class="text-start" style="font-family:system-ui; color: grey; font-weight: 800;">0 Calorie</h5>
+                        {% endif %}
+                    </div>
+                    <div class="row text-center">
+                        {% for product in products %}
+                            {% if product.category == category %}
+                                
+                                <div class="col-lg-3 col-md-6 col-sm-9">
+                                    <div style="overflow: hidden;" class="card bg-white text-light mb-3 shadow">
+                                        <div class="h1 mt-3">
+                                            
+                                            <a href="{% url 'product' product.id %}" class="card-l text-decoration-none">
+                                                
+                                                <img src="{{ product.image1.url }}" alt="" class="card-img img-fluid">
+                                                
+                                            </a>
+                                            <div class="card-body">
+                                                <h1></h1>
+                                                <a href="{% url 'product' product.id %}" class="text-decoration-none"><h6 class="card-text-body text-nowrap fw-bold ">{{product.name}}</h6></a>
+                                                
+                                                <div class="card-text"><span><strike class="text-danger fs-6">{{product.price | add:129}}.00</strike></span>&ThinSpace;<span class="text-success fs-4">{{product.price}} Dh</span></div>
+                                                <a href="{% url 'product' product.id %}" style="border-radius: 3em;" class="btn btn-info text-light fw-bold">COMMANDER</a>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+                    
+            
+
+
+            
+
+        </div>
+    </section>
+    
+</body>
+{% endblock content %}
+</html>

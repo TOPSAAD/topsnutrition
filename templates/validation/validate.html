@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+</head>
+{% extends 'base.html' %}
+{% block content %}
+<body>
+    <div class="container">
+        
+        <section id="info" class="bg-dark m-5 text-white rounded">
+            <div class="py-1">
+                <h5 class="m-4 " style="font-family:Arial Black;">Vos Informations Personnelles</h5>
+            </div>
+            <form action="{% url 'saveInfos' %}" id="validateform" method="post">
+                {% csrf_token %}
+            <div class="container">
+                
+                <div class="row my-3">
+                    <div class="col-lg-6 ">
+                        <div class="container">
+                            <h6 class="my-2 mx-3">Nom <span class="text-danger">*</span></h6>
+                        <input class="form-control m-auto" required name="nom" placeholder="Nom" type="text">
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="container">
+                            <h6 class="my-2 mx-3">E-mail <span class="text-danger">*</span></h6>
+                        <input class="form-control m-auto" required name="email" placeholder="E-mail" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col-lg-6 ">
+                        <div class="container">
+                            <h6 class="my-2 mx-3">Prenom <span class="text-danger">*</span></h6>
+                        <input class="form-control m-auto" required name="prenom" placeholder="Prenom" type="text">
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-6 ">
+                        <div class="container">
+                            <h6 class="my-2 mx-3">Adresse <span class="text-danger">*</span></h6>
+                        <input class="form-control m-auto" required name="adresse" placeholder="Adresse"  type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col-lg-6 ">
+                        <div class="container">
+                            <h6 class="my-2 mx-3">Telephone <span class="text-danger">*</span></h6>
+                        <input class="form-control m-auto" required name="telephone" placeholder="Telephone" type="text">
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="container">
+                            <h6 class="my-2 mx-3">Ville <span class="text-danger">*</span></h6>
+                        <input class="form-control m-auto" required name="ville" placeholder="Ville" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-3 pb-5">
+                    <div class="col-lg-6 ">
+                        <div class="container">
+                            <h6 class="my-2 mx-3">Whatsapp <span class="text-danger">*</span></h6>
+                        <input class="form-control m-auto" required name="whatsapp" placeholder="Whatsapp" type="text">
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="container">
+                            <h6 class="my-2 mx-3">Pays <span class="text-danger">*</span></h6>
+                        <input class="form-control m-auto" required name="pays" placeholder="Pays" value="Maroc" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </section>
+        <section id="cart" class="m-5">
+            <div class="container">
+                <h5 class="m-3 text-warning" style="font-family:Arial Black;">Votre Panier</h5>
+                <div class="row">
+                    <div class="col-lg-8 col-md-12">
+                        <div class=" text-light p-2 border rounded " style="overflow:auto;height: 21em;">
+                            <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    
+                                    <th scope="col">IMAGE</th>
+                                    <th scope="col">DESCRIPTION</th>
+                                    <th scope="col">QUANTITÉ</th>
+                                    <th scope="col">PRIX</th>
+                                    <th scope="col">TOTAL</th>
+                                    
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in products %}
+                                  <tr>
+                                    
+                                    <td>
+                                        <a href="" class="h6"><img src="{{ item.img }}" alt="" class="" style="width:3em;"></a>
+                                    </td>
+                                    <td><a class="link-warning" href="{% url 'product' item.id %}">{{ item.name }}</a><br><span class="h6 text-secondary">{{ item.flavor }}</span></td>
+                                    <td>
+                                        <span>{{ item.quantity }}</span>
+                                                    
+                                    </td>
+                                    <td>{{ item.price }}</td>
+                                    <td>{{ item.total }}</td>
+                                    
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="text-center border bg-dark p-2 text-light rounded ">
+                            <div class="container">
+                                <h6 class="m-3">SOUS-TOTAL : <span>{{ subtotal }}</span></h6>
+                                <hr>
+                               
+                                       
+
+                                        <div style="font-family: 'Gill Sans', sans-serif; outline:none;" class="border border-secondary rounded text-start my-2 bg-white text-secondary w-100">
+                                            <label style="font-family: 'Gill Sans', sans-serif;" class="px-3" for="">Livraison</label>
+                                            <div class="row">
+                                                <div class="col-10">
+                                                    <form name="shipform" id="shipform" method="post">
+                                                        {% csrf_token %}
+                                                        
+                                                        
+                                                            {% if delivery == 19 %}
+                                                            
+                                                            <span class="p-3" value="19"> RABAT-SALE <span class="text-warning">19 Dh</span></span>
+                                                            
+                                                            {% elif delivery == 49 %}
+                                                            
+                                                            
+                                                            <span class="p-3" value="49"> AUTRE VILLE <span class="text-warning">49 Dh</span></span>
+                                                            {% endif %}
+                                                            
+                                                       
+                                                    </form>
+                                                </div>
+                                                <div class="col-1">
+                                                    <i class="bi bi-chevron-right hw-bold h4 flex"></i>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                
+                            <hr>
+                                <h6 class="m-4">TOTAL : <span class="text-warning">{{ total }}</span></h6>
+                            <hr>
+                                {% if delivery == 0 %}
+                                <div class="row container">
+                                    
+                                    <div class="col-lg-6">
+                                        <button disabled type="submit" class="btn btn-danger m-4">VALIDER</button>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <a href="/" class="btn btn-light m-4">ANNULER</a>
+                                    </div>
+                                    
+                                </div>
+                                    
+                                {% else %}
+                                <div class="row container">
+                                    
+                                    <div class="col-lg-6">
+                                        <button type="submit" form="validateform" class="btn btn-danger m-4">VALIDER</button>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <a href="/" class="btn btn-light m-4">ANNULER</a>
+                                    </div>
+                                    
+                                </div>
+                                {% endif %}
+                                
+                            </div>
+                            
+                            
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="m-3">
+                    <a href="{% url 'products' %}" class="link-warning h6 "><i class="bi bi-arrow-left"></i> Poursuivre les achats</a>
+                </div>
+            </div>
+        </section>
+    
+    </div>
+</body>
+<script type="text/javascript">
+    $(document).on('submit', '#shipform', function(e){
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '/validate',
+            data:{
+                delivery: $('#delivery').val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            
+
+
+        })
+
+    })
+</script>
+{% endblock content %}
+
+</html>
